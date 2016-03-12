@@ -1,6 +1,9 @@
 package com.example.joseamaya.kivajsonlistview;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -12,9 +15,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static Context mContext;
+    JSONObject kivaJason=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +44,19 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mContext=this;
+        String url="http://api.kivaws.org/v1/loans/newest.json";
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                getKivaLoans("http://api.kivaws.org/v1/loans/newest.json");
+                TextView tv33 = (TextView) findViewById(R.id.textViewPrueba);
+                tv33.setText("se actualizo");
+
             }
         });
 
@@ -40,6 +68,23 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        getKivaLoans(url);
+
+        ListView lv2=(ListView) findViewById(R.id.listViewLoans);
+        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent=new Intent (mContext,detalle.class);
+                intent.putExtra("kiva", kivaJason.toString());
+                intent.putExtra("numero",position);
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     @Override
@@ -97,5 +142,43 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getKivaLoans(String url) {
+        final Context context=this;
+        JsonObjectRequest jor=new JsonObjectRequest(
+                url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            kivaJason=response;
+                            JSONArray loans=response.getJSONArray("loans");
+
+                            ArrayList<JSONObject> dataSourse=new ArrayList<JSONObject>();
+                            for(int i=0;i<loans.length();i++)
+                            {
+                                dataSourse.add(loans.getJSONObject(i));
+
+                            }
+                            CeldaComplejaAdapter adapter=new CeldaComplejaAdapter(context,0,dataSourse);
+                            ((ListView)findViewById(R.id.listViewLoans)).setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }
+        );
+        MySingleton.getInstance(mContext).addToRequestQueue(jor);
     }
 }
