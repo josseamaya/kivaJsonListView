@@ -20,7 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detalle"></activity>
+        <activity android:name=".detalle" />
+        <activity
+            android:name=".patrocinadores"
+            android:label="@string/title_activity_patrocinadores"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,8 +1,10 @@
 package com.example.joseamaya.kivajsonlistview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -13,7 +15,8 @@ import org.json.JSONObject;
 
 public class detalle extends AppCompatActivity {
     public static Context mContext;
-    JSONObject jsonKiva;
+    JSONObject jsonKivaP;
+    String idPatrocinador="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,7 @@ public class detalle extends AppCompatActivity {
         Integer posicion=this.getIntent().getIntExtra("numero", 0);
 
         try {
-              jsonKiva= new JSONObject(tempkiva);
+              jsonKivaP= new JSONObject(tempkiva);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -36,7 +39,7 @@ public class detalle extends AppCompatActivity {
         String loans=null;
 
         try {
-            loans = jsonKiva.getString("loans");
+            loans = jsonKivaP.getString("loans");
             JSONArray arregloPersonas = new JSONArray(loans);
 
             JSONObject persona = (JSONObject) arregloPersonas.get(p);
@@ -50,6 +53,7 @@ public class detalle extends AppCompatActivity {
             String activiad=persona.getString("activity");
             String uso=persona.getString("use");
             String sector=persona.getString("sector");
+            idPatrocinador= persona.getString("partner_id");
 
             NetworkImageView avatar = (NetworkImageView) findViewById(R.id.networkImageViewFoto);
             avatar.setImageUrl("https://www.kiva.org/img/512/" + idImagen + ".jpg", MySingleton.getInstance(mContext).getImageLoader());
@@ -72,5 +76,10 @@ public class detalle extends AppCompatActivity {
             tvJoseNombre.setText("error");
 
         }
+    }
+    public void onClickPatrocinadores(View v){
+        Intent intent=new Intent (mContext,patrocinadores.class);
+        intent.putExtra("numeroPatrocinador", idPatrocinador);
+        startActivity(intent);
     }
 }
