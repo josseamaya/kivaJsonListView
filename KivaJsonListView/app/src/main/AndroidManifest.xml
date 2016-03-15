@@ -24,6 +24,10 @@
         <activity
             android:name=".patrocinadores"
             android:label="@string/title_activity_patrocinadores"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListaPatrocinadores"
+            android:label="@string/title_activity_lista_patrocinadores"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

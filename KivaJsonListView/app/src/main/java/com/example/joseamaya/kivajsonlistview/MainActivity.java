@@ -16,8 +16,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setTitle("Lista de Loans");
+
 
         mContext=this;
         String url="http://api.kivaws.org/v1/loans/newest.json";
@@ -128,6 +133,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+
+            Intent intent=new Intent (mContext,ListaPatrocinadores.class);
+            startActivity(intent);
+            /*int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(this, "presiono galaria", duration);
+            toast.show();*/
 
         } else if (id == R.id.nav_slideshow) {
 
