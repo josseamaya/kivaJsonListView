@@ -63,18 +63,21 @@ public class patrocinadores extends AppCompatActivity {
 
                             String paises=persona.getString("countries");
 
+                            String prestamosRealizados=persona.getString("loans_posted");
+                            String totalDineroPrestado=persona.getString("total_amount_raised");
+
                             JSONArray arregloPaises =new JSONArray(paises);
                             String listaPaises="";
 
                             JSONObject pais=null;
 
-                            for (int a=0;a<=1;a++) {
-                                pais = (JSONObject) arregloPaises.get(1);
-                                listaPaises = pais.getString("region")+"\n";
+                            for (int a=0;a<arregloPaises.length();a++) {
+                                pais = (JSONObject) arregloPaises.get(a);
+                                listaPaises = listaPaises+"Lugar de patrocinios: "+pais.getString("name")+", "+pais.getString("region")+"\n";
                             }
 
 
-                            String textoPatrocinadores="Nombre: "+nombre+"\n"+"Estado: "+estado+"\n"+"Inicio: "+diaInicio+"\n";
+                            String textoPatrocinadores="Nombre: "+nombre+"\n"+"Estado: "+estado+"\n"+"Inicio: "+diaInicio+"\n"+"Prestamos Realizados: "+prestamosRealizados+"\n"+"Total Dinero Prestado:"+totalDineroPrestado+"\n";
 
                             NetworkImageView avatar = (NetworkImageView) findViewById(R.id.networkImageViewPatrocinadores);
                             avatar.setImageUrl("https://www.kiva.org/img/512/" + idImagen + ".jpg", MySingleton.getInstance(context).getImageLoader());
