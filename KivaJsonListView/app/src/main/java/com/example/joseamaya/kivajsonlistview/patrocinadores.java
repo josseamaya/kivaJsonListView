@@ -43,7 +43,7 @@ public class patrocinadores extends AppCompatActivity {
         final Context context=this;
 
         JsonObjectRequest jor=new JsonObjectRequest(
-                "http://api.kivaws.org/v1/partners/"+"1"+".json",
+                "http://api.kivaws.org/v1/partners/"+p+".json",
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

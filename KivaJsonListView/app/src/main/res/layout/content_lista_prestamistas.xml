@@ -9,22 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.joseamaya.kivajsonlistview.patrocinadores"
-    tools:showIn="@layout/activity_patrocinadores"
+    tools:context="com.example.joseamaya.kivajsonlistview.ListaPrestamistas"
+    tools:showIn="@layout/activity_lista_prestamistas"
     android:orientation="vertical">
-
-    <FrameLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:weightSum="1">
-
-        <com.android.volley.toolbox.NetworkImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/networkImageViewPatrocinadores"
-            android:layout_gravity="center" />
-    </FrameLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -34,20 +21,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewPatrocinadores" />
+            android:text="New Text"
+            android:id="@+id/textViewPruebaPresta" />
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent">
 
-        <TextView
+        <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textViewPaises" />
-    </LinearLayout>
+            android:id="@+id/listViewPresta"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </LinearLayout>

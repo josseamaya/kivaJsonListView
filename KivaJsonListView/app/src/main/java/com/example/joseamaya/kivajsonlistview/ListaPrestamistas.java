@@ -1,14 +1,12 @@
 package com.example.joseamaya.kivajsonlistview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,19 +20,19 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ListaPatrocinadores extends AppCompatActivity {
+public class ListaPrestamistas extends AppCompatActivity {
     public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_patrocinadores);
+        setContentView(R.layout.activity_lista_prestamistas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mContext=this;
-        String url="http://api.kivaws.org/v1/partners.json";
-        getKivaPatro(url);
+        String url="http://api.kivaws.org/v1/lenders/newest.json";
+        getKivaPresta(url);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,24 +40,12 @@ public class ListaPatrocinadores extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                getKivaPatro("http://api.kivaws.org/v1/partners.json");
+                getKivaPresta("http://api.kivaws.org/v1/lenders/newest.json");
             }
         });
-
-        ListView lv3=(ListView) findViewById(R.id.listViewPatrocinadores);
-        lv3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(mContext, patrocinadores.class);
-                intent.putExtra("numeroPatrocinador", Integer.toString(position + 1));
-                startActivity(intent);
-
-            }
-        });
-
 
     }
-    private void getKivaPatro(String url) {
+    private void getKivaPresta(String url) {
         final Context context=this;
         JsonObjectRequest jor=new JsonObjectRequest(
                 url,
@@ -69,21 +55,21 @@ public class ListaPatrocinadores extends AppCompatActivity {
 
                         try {
 
-                            JSONArray patro=response.getJSONArray("partners");
+                            JSONArray presta=response.getJSONArray("lenders");
 
                             ArrayList<JSONObject> dataSourse=new ArrayList<JSONObject>();
-                            for(int i=0;i<patro.length();i++)
+                            for(int i=0;i<presta.length();i++)
                             {
-                                dataSourse.add(patro.getJSONObject(i));
+                                dataSourse.add(presta.getJSONObject(i));
 
                             }
-                            AdaptadorPatrocinadores adapter=new AdaptadorPatrocinadores(context,0,dataSourse);
-                            ((ListView)findViewById(R.id.listViewPatrocinadores)).setAdapter(adapter);
+                            AdaptadorPrestamistas adapter=new AdaptadorPrestamistas(context,0,dataSourse);
+                            ((ListView)findViewById(R.id.listViewPresta)).setAdapter(adapter);
 
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TextView tv4=(TextView)findViewById(R.id.textViewPruebaPatro);
+                            TextView tv4=(TextView)findViewById(R.id.textViewPruebaPresta);
                             tv4.setText("errorCodigo");
 
                         }
@@ -92,14 +78,12 @@ public class ListaPatrocinadores extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        TextView tv=(TextView)findViewById(R.id.textViewPruebaPatro);
+                        TextView tv=(TextView)findViewById(R.id.textViewPruebaPresta);
                         tv.setText("errorResponse");
                     }
                 }
         );
         MySingleton.getInstance(mContext).addToRequestQueue(jor);
     }
-
-
 
 }

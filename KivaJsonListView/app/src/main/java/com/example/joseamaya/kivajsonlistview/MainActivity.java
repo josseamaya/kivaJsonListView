@@ -2,6 +2,7 @@ package com.example.joseamaya.kivajsonlistview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -141,13 +142,19 @@ public class MainActivity extends AppCompatActivity
             toast.show();*/
 
         } else if (id == R.id.nav_slideshow) {
+            Intent intent=new Intent (mContext,ListaPrestamistas.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "josseamaya@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Nueva App");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Me gusta esta aplicacion deberias de probarla para ayudar a mas personas");
+            startActivity(Intent.createChooser(emailIntent, "Send email..."));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
