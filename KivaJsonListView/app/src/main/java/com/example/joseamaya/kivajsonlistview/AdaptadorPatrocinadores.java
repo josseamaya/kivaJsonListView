@@ -31,6 +31,7 @@ public class AdaptadorPatrocinadores extends ArrayAdapter<JSONObject> {
 
         TextView nombre = (TextView) celda.findViewById(R.id.textViewNombrePatro);
         TextView prestamos=(TextView) celda.findViewById(R.id.textViewPrestamosPatro);
+        TextView id=(TextView)celda.findViewById(R.id.textPatroId);
         NetworkImageView niv= (NetworkImageView)celda.findViewById(R.id.networkImageViewFotoPatro);
 
         JSONObject elemento=this.getItem(position);
@@ -42,6 +43,7 @@ public class AdaptadorPatrocinadores extends ArrayAdapter<JSONObject> {
             String idImagen=imagen.getString("id");
             nombre.setText(elemento.getString("name"));
             prestamos.setText("Prestamos realizdos: "+elemento.getString("loans_posted"));
+            id.setText(elemento.getString("id"));
 
             niv.setImageUrl("https://www.kiva.org/img/512/" + Integer.parseInt(idImagen) + ".jpg", MySingleton.getInstance(MainActivity.mContext).getImageLoader());
 

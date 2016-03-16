@@ -19,6 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class ListaPatrocinadores extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("Nuestros Socios");
+
         mContext=this;
         String url="http://api.kivaws.org/v1/partners.json";
         getKivaPatro(url);
@@ -40,7 +43,7 @@ public class ListaPatrocinadores extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Lista Actualizada", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 getKivaPatro("http://api.kivaws.org/v1/partners.json");
             }
@@ -50,8 +53,11 @@ public class ListaPatrocinadores extends AppCompatActivity {
         lv3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                TextView textView = (TextView) view.findViewById(R.id.textPatroId);
+                final String patroId = (String) textView.getText();
+
                 Intent intent = new Intent(mContext, patrocinadores.class);
-                intent.putExtra("numeroPatrocinador", Integer.toString(position + 1));
+                intent.putExtra("numeroPatrocinador", patroId);
                 startActivity(intent);
 
             }
@@ -74,7 +80,10 @@ public class ListaPatrocinadores extends AppCompatActivity {
                             ArrayList<JSONObject> dataSourse=new ArrayList<JSONObject>();
                             for(int i=0;i<patro.length();i++)
                             {
-                                dataSourse.add(patro.getJSONObject(i));
+                                if (i!=12)
+                                {
+                                    dataSourse.add(patro.getJSONObject(i));
+                                }
 
                             }
                             AdaptadorPatrocinadores adapter=new AdaptadorPatrocinadores(context,0,dataSourse);
@@ -83,8 +92,7 @@ public class ListaPatrocinadores extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TextView tv4=(TextView)findViewById(R.id.textViewPruebaPatro);
-                            tv4.setText("errorCodigo");
+
 
                         }
                     }
@@ -92,8 +100,7 @@ public class ListaPatrocinadores extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        TextView tv=(TextView)findViewById(R.id.textViewPruebaPatro);
-                        tv.setText("errorResponse");
+
                     }
                 }
         );

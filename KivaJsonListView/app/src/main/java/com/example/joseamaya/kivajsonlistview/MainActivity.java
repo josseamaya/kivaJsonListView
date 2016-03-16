@@ -47,7 +47,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.setTitle("Lista de Loans");
+
+
+        setTitle("Loans Kiva");
 
 
         mContext=this;
@@ -57,11 +59,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Lista Actualizada", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 getKivaLoans("http://api.kivaws.org/v1/loans/newest.json");
-                TextView tv33 = (TextView) findViewById(R.id.textViewPrueba);
-                tv33.setText("se actualizo");
+
 
             }
         });
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
+            Intent intent=new Intent (mContext,graficos.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 

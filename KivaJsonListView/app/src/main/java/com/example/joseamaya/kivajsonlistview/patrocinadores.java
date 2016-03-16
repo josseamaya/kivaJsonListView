@@ -32,9 +32,14 @@ public class patrocinadores extends AppCompatActivity {
         setContentView(R.layout.activity_patrocinadores);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Detalle del Socio");
 
         String posicionP=this.getIntent().getStringExtra("numeroPatrocinador");
         llenarInformacionPatrocinadores(posicionP);
+
+        TextView tv = (TextView) findViewById(R.id.textViewPatrocinadores);
+        tv.setText(posicionP);
+
 
 
 
@@ -74,7 +79,7 @@ public class patrocinadores extends AppCompatActivity {
 
                             for (int a=0;a<arregloPaises.length();a++) {
                                 pais = (JSONObject) arregloPaises.get(a);
-                                listaPaises = listaPaises+"Lugar de patrocinios: "+pais.getString("name")+", "+pais.getString("region")+"\n";
+                                listaPaises = listaPaises+"Ubicación: "+pais.getString("name")+", "+pais.getString("region")+"\n";
                             }
 
 

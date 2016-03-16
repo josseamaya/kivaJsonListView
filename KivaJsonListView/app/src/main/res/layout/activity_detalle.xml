@@ -63,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/textViewUso" />
+            android:id="@+id/textViewUso"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,10 +76,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:id="@+id/textViewMonto" />
+            android:id="@+id/textViewMonto"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="69dp">
@@ -86,8 +88,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Patrocinador"
+            android:text="Mi Socio"
             android:id="@+id/buttonPatrocinadores"
-            android:onClick="onClickPatrocinadores" />
-    </LinearLayout>
+            android:onClick="onClickPatrocinadores"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </LinearLayout>

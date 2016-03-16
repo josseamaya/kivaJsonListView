@@ -30,6 +30,8 @@ public class ListaPrestamistas extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setTitle("Nuestros Prestamistas");
+
         mContext=this;
         String url="http://api.kivaws.org/v1/lenders/newest.json";
         getKivaPresta(url);
@@ -38,7 +40,7 @@ public class ListaPrestamistas extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Lista Actualizada", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 getKivaPresta("http://api.kivaws.org/v1/lenders/newest.json");
             }
@@ -69,8 +71,7 @@ public class ListaPrestamistas extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            TextView tv4=(TextView)findViewById(R.id.textViewPruebaPresta);
-                            tv4.setText("errorCodigo");
+
 
                         }
                     }
@@ -78,8 +79,7 @@ public class ListaPrestamistas extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        TextView tv=(TextView)findViewById(R.id.textViewPruebaPresta);
-                        tv.setText("errorResponse");
+
                     }
                 }
         );

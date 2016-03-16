@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/kivalogo"
-            android:title="Patrocinadores" />
+            android:title="Socios" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/kivalogo"
@@ -19,7 +19,7 @@
 
             android:icon="@drawable/kivalogo"
 
-            android:title="Prestamos realizados" />
+            android:title="Graficos" />
     </group>
 
     <item android:title="Difundenos">

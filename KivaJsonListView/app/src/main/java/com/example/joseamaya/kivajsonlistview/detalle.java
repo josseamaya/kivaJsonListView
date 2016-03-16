@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +24,9 @@ public class detalle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
         mContext=this;
+
+        setTitle("Detalles del Loan");
+
         String tempkiva=this.getIntent().getStringExtra("kiva");
         Integer posicion=this.getIntent().getIntExtra("numero", 0);
 
@@ -55,6 +59,13 @@ public class detalle extends AppCompatActivity {
             String sector=persona.getString("sector");
             idPatrocinador= persona.getString("partner_id");
 
+            JSONObject lugar=persona.getJSONObject("location");
+            String pais =lugar.getString("country");
+            String ciudad =lugar.getString("town");
+            String publicado = persona.getString("posted_date");
+
+
+
             NetworkImageView avatar = (NetworkImageView) findViewById(R.id.networkImageViewFoto);
             avatar.setImageUrl("https://www.kiva.org/img/512/" + idImagen + ".jpg", MySingleton.getInstance(mContext).getImageLoader());
 
@@ -65,9 +76,9 @@ public class detalle extends AppCompatActivity {
             TextView tv3 = (TextView) findViewById(R.id.textViewSector);
             tv3.setText(sector);
             TextView tv4 = (TextView) findViewById(R.id.textViewUso);
-            tv4.setText(uso);
+            tv4.setText("Necesito $"+monto);
             TextView tv5 = (TextView) findViewById(R.id.textViewMonto);
-            tv5.setText(monto);
+            tv5.setText("Para "+uso+"\n"+"Ubicación: "+ciudad+", "+pais+"\n"+"Publicado el: "+publicado);
 
 
         } catch (JSONException e) {

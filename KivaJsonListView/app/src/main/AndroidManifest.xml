@@ -32,6 +32,10 @@
         <activity
             android:name=".ListaPrestamistas"
             android:label="@string/title_activity_lista_prestamistas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".graficos"
+            android:label="@string/title_activity_graficos"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

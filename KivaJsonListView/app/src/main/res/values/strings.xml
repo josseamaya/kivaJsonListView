@@ -8,4 +8,5 @@
     <string name="title_activity_patrocinadores">patrocinadores</string>
     <string name="title_activity_lista_patrocinadores">ListaPatrocinadores</string>
     <string name="title_activity_lista_prestamistas">ListaPrestamistas</string>
+    <string name="title_activity_graficos">graficos</string>
 </resources>
